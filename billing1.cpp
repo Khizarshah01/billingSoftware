@@ -366,7 +366,7 @@ void shopping::receipt()
             cout <<"\n\n Do you want buy another product ? if yes then press y else no";
             cin >>choice;
         }
-        while (choice =="y");
+        while (choice == 'y');
         cout << "\n\n\n\t_______Recipet_______";
         cout << "\n Product no\t Product Name\t Product Price\t Amount\t Amount with disscount\n ";
 
