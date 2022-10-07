@@ -1,9 +1,11 @@
 #include <algorithm>
 #include <cstdio>
 #include <cstdlib>
+#include <exception>
 #include <iostream>
 #include <fstream>
 #include <iterator>
+#include <memory>
 #include <ostream>
 #include <string>
 
@@ -298,11 +300,102 @@ void shopping::remov()
 
     if(token==0)
     {
-        cout<<"\n\t Record not found!";
+        cout <<"\n\t Record not found!";
     }
   }
 
 }
 
 
-//void shopping::list()
+void shopping:: list()
+{
+    fstream data;
+    data.open("database.txt",ios::in);
+    cout <<"\n\n---------------------------------\n";
+    cout <<"PrNo\t\t Name\t\t Price\n";
+    cout <<"\n\n---------------------------------\n";
+    data >>pcode>>pname>>price>>dis;
+    while (!data.eof()) {
+        cout <<pcode<<"\t\t"<<pname<<"\t\t"<<price<<"\n";
+        data >>pcode>>pname>>price>>dis;
+    }
+    data.close();
+}
+
+void shopping::receipt()
+{
+    
+    fstream data;
+    int arrc[100];
+    int arrq[100];
+    char choice;
+    int c=0;
+    float amount=0;
+    float dic=0;
+    float total=0;
+
+    cout << "\n\n\n\t Recipt";
+    data.open("database.txt",ios::in);
+    if(!data)
+    {
+        cout << "\n\n\n Empty data";
+    }
+    else{
+        data.close();
+
+        list();
+        cout <<"\n--------------------------\n";
+        cout <<"\n  Please place the order  \n";
+        cout <<"\n--------------------------\n";
+
+        do {
+            m:
+            cout <<"\t\t Enter product name :";
+            cin >> arrc[c];
+            cout <<"\t\t Enter quantity :";
+            cin >> arrq[c];
+
+            for (int i=0; i<c; i++) {
+                if(arrc[c]==arrc[i])
+                {
+                    cout <<"\n\n Duplicate product code please try again";
+                    goto m;
+                }
+            }
+            c++;
+            cout <<"\n\n Do you want buy another product ? if yes then press y else no";
+            cin >>choice;
+        }
+        while (choice =="y");
+        cout << "\n\n\n\t_______Recipet_______";
+        cout << "\n Product no\t Product Name\t Product Price\t Amount\t Amount with disscount\n ";
+
+        for (int i=0; i<c; i++){
+            data.open("database.txt",ios::in);
+            data >>pcode>>pname>>price>>dis;
+            while (!data.eof()) {
+                if (pcode==arrc[i])
+                {
+                    amount=price*arrq[i];
+                    dis=amount-(amount*dis/100);
+                    total=total+dis;
+                    cout <<"\n"<<"\t\t"<< pcode<<"\t\t"<<pname<<"\t\t"<< price<<"\t\t"<<amount<<"\t\t"<<dis;
+                }
+                data>>pcode>>pname>>price>>dis;
+            }
+        }
+        data.close();
+    }
+    cout <<"\t\t______________";
+    cout <<"\n Total amount :"<<total;
+
+}
+
+
+int main()
+{
+    shopping s;
+    s.menu();
+
+    return 0;
+}
