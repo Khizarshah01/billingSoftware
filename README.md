@@ -1,0 +1,3 @@
+# Supermarket Billing Project
+
+Billing software is used to invoice clients for services and goods as well as to track time and billing. It helps with the administration of a chain of stores as well as other company billing systems. Additionally, it provides recurring services and a professional rent billing system. Billing systems assist in the automation of time-consuming operations including, but not limited to, the creation of invoices, tracking of products, and other accounting records. Furthermore, you don't need to worry about it every time you bill because such software automatically calculates and applies tax on taxable items.
